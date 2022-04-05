@@ -1,10 +1,10 @@
 ﻿using HarmonyLib;
-using SandBox.GameComponents;
+using SandBox;
 using TaleWorlds.MountAndBlade;
 
 namespace BerserkMode.Patches
 {
-    [HarmonyPatch(typeof(SandboxAgentApplyDamageModel), nameof(SandboxAgentApplyDamageModel.CalculateDamage))]
+    [HarmonyPatch(typeof(SandBox.GameComponents.SandboxAgentApplyDamageModel), nameof(SandBox.GameComponents.SandboxAgentApplyDamageModel.CalculateDamage))]
     public class BerserkDamageMultiplierPatch
     {
         private static AttackInformation attackInfo;

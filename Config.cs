@@ -10,9 +10,6 @@ namespace BerserkMode
             "Set to 1 to enable Berserk mode always being activated for the player.\n" +
             "alwaysBerserk=0\n\n" +
 
-            "Set to 0 to disable support for companions going berserk.\n" +
-            "minHPPerKill=5\n\n" +
-
             "MINIMUM HP players receives on kill during Berserk Mode\n" +
             "minHPPerKill=5\n\n" +
 
