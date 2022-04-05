@@ -1,0 +1,10 @@
+C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord\Modules\BerserkMode\x64\Debug\net472\BerserkMode.dll
+C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord\Modules\BerserkMode\x64\Debug\net472\BerserkMode.pdb
+C:\Users\stric\source\repos\BerserkMode\BerserkMode\obj\x64\Debug\net472\BerserkMode.csproj.AssemblyReference.cache
+C:\Users\stric\source\repos\BerserkMode\BerserkMode\obj\x64\Debug\net472\BerserkMode.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\stric\source\repos\BerserkMode\BerserkMode\obj\x64\Debug\net472\BerserkMode.AssemblyInfoInputs.cache
+C:\Users\stric\source\repos\BerserkMode\BerserkMode\obj\x64\Debug\net472\BerserkMode.AssemblyInfo.cs
+C:\Users\stric\source\repos\BerserkMode\BerserkMode\obj\x64\Debug\net472\BerserkMode.csproj.CoreCompileInputs.cache
+C:\Users\stric\source\repos\BerserkMode\BerserkMode\obj\x64\Debug\net472\BerserkMode.csproj.CopyComplete
+C:\Users\stric\source\repos\BerserkMode\BerserkMode\obj\x64\Debug\net472\BerserkMode.dll
+C:\Users\stric\source\repos\BerserkMode\BerserkMode\obj\x64\Debug\net472\BerserkMode.pdb
