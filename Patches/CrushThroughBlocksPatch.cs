@@ -1,34 +1,27 @@
 ﻿using HarmonyLib;
-using SandBox;
+using MCM.Abstractions.Base.Global;
 using TaleWorlds.MountAndBlade;
+using TaleWorlds.MountAndBlade.ComponentInterfaces;
+using SandBox.GameComponents;
 
 namespace BerserkMode.Patches
 {
-    [HarmonyPatch(typeof(SandBox.GameComponents.SandboxAgentApplyDamageModel), nameof(SandBox.GameComponents.SandboxAgentApplyDamageModel.DecideCrushedThrough))]
-    public class CrushThroughBlocksPatch
-    {
-        private static Agent attacker;
-
-        [HarmonyPrefix]
-        public static void Prefix(Agent attackerAgent)
-        {
-            if (SubModule.breakThroughBlocks)
-            {
-                attacker = attackerAgent;
-            }
-        }
-
+    [HarmonyPatch(typeof(SandboxAgentApplyDamageModel), nameof(SandboxAgentApplyDamageModel.DecideCrushedThrough))]
+    internal class CrushThroughBlocksPatchSandbox {
         [HarmonyPostfix]
-        public static bool Postfix(bool original)
+        public static void Postfix(ref bool __result, Agent attackerAgent)
         {
-            if (SubModule.breakThroughBlocks)
-            {
-                if (attacker.IsPlayerControlled && SubModule.isBerserk)
-                {
-                    return true;
-                }
-            }
-            return original;
+            if (attackerAgent.IsPlayerControlled && BerserkMissionLogic.Instance.IsBerserking && GlobalSettings<MCMConfig>.Instance.CrushThroughBlocksInBerserkMode)
+                __result = true;
+        }
+    }
+
+    [HarmonyPatch(typeof(CustomAgentApplyDamageModel), nameof(CustomAgentApplyDamageModel.DecideCrushedThrough))]
+    internal class CrushThroughBlocksPatchCustomBattle {
+        [HarmonyPostfix]
+        public static void Postfix(ref bool __result, Agent attackerAgent) {
+            if (attackerAgent.IsPlayerControlled && BerserkMissionLogic.Instance.IsBerserking && GlobalSettings<MCMConfig>.Instance.CrushThroughBlocksInBerserkMode)
+                __result = true;
         }
     }
 }

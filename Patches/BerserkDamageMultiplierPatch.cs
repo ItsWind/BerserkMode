@@ -1,37 +1,39 @@
 ﻿using HarmonyLib;
-using SandBox;
+using MCM.Abstractions.Base.Global;
 using TaleWorlds.MountAndBlade;
+using SandBox.GameComponents;
 
 namespace BerserkMode.Patches
 {
-    [HarmonyPatch(typeof(SandBox.GameComponents.SandboxAgentApplyDamageModel), nameof(SandBox.GameComponents.SandboxAgentApplyDamageModel.CalculateDamage))]
-    public class BerserkDamageMultiplierPatch
-    {
-        private static AttackInformation attackInfo;
-
-        [HarmonyPrefix]
-        public static void Prefix(ref AttackInformation attackInformation)
-        {
-            attackInfo = attackInformation;
-        }
-
+    [HarmonyPatch(typeof(SandboxAgentApplyDamageModel), nameof(SandboxAgentApplyDamageModel.CalculateDamage))]
+    internal class BerserkDamageMultiplierPatchSandbox {
         [HarmonyPostfix]
-        public static float Postfix(float original)
+        private static void Postfix(ref float __result, ref AttackInformation attackInformation)
         {
-            if (SubModule.isBerserk)
+            if (BerserkMissionLogic.Instance.IsBerserking)
             {
-                if (attackInfo.IsAttackerPlayer)
+                if (attackInformation.IsAttackerPlayer)
                 {
-                    float newDamage = original * ((float)SubModule.berserkDamageMultiplier / 10.0f);
-                    return newDamage;
+                    __result = __result * GlobalSettings<MCMConfig>.Instance.BerserkDamageMultiplier;
                 }
-                else if (attackInfo.IsVictimPlayer)
+                else if (attackInformation.IsVictimPlayer)
                 {
-                    float newDamage = original / ((float)SubModule.berserkDamageDivider / 10.0f);
-                    return newDamage;
+                    __result = __result * GlobalSettings<MCMConfig>.Instance.BerserkResistanceMultiplier;
                 }
             }
-            return original;
+        }
+    }
+    [HarmonyPatch(typeof(CustomAgentApplyDamageModel), nameof(CustomAgentApplyDamageModel.CalculateDamage))]
+    internal class BerserkDamageMultiplierPatchCustomBattle {
+        [HarmonyPostfix]
+        private static void Postfix(ref float __result, ref AttackInformation attackInformation) {
+            if (BerserkMissionLogic.Instance.IsBerserking) {
+                if (attackInformation.IsAttackerPlayer) {
+                    __result = __result * GlobalSettings<MCMConfig>.Instance.BerserkDamageMultiplier;
+                } else if (attackInformation.IsVictimPlayer) {
+                    __result = __result * GlobalSettings<MCMConfig>.Instance.BerserkResistanceMultiplier;
+                }
+            }
         }
     }
 }
